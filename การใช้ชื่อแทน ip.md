@@ -16,10 +16,10 @@ http://ros2go.local:8000
 
 ## 1. กำหนด Hostname ของหุ่นยนต์
 
-หากต้องการตั้งชื่อหุ่นยนต์เป็น **ros2go**
+หากต้องการตั้งชื่อหุ่นยนต์เป็น **robot1**
 
 ```bash
-sudo hostnamectl set-hostname ros2go
+sudo hostnamectl set-hostname robot1
 ```
 
 ---
@@ -35,7 +35,7 @@ sudo nano /etc/hosts
 เพิ่มหรือแก้ไขบรรทัด
 
 ```text
-127.0.1.1    ros2go
+127.0.1.1    robot1
 ```
 
 บันทึกไฟล์
@@ -141,7 +141,7 @@ const api = axios.create({
 จึงสามารถเข้าถึงหุ่นยนต์ผ่าน
 
 ```text
-http://ros2go.local:8000
+http://robot1.local:8000
 ```
 
 ได้ทันที โดยไม่ต้องติดตั้งซอฟต์แวร์เพิ่มเติม
