@@ -191,7 +191,7 @@ Base URL
 
 | Method | Endpoint | Description |
 |---------|----------|-------------|
-| POST | `/launch/{user}/{mode}` | เริ่ม Process |
+| POST | `/launch/{mode}` | เริ่ม Process |
 | POST | `/stop/{mode}` | หยุด Process |
 
 ตัวอย่าง Mode
