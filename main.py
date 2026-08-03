@@ -12,7 +12,7 @@ from ros2.node import run_ros2
 from auth import verify_api_key
 from routers import system, process, safety, map
 
-app = FastAPI(title="AMR API Server", description="ROS2GO API สำหรับควบคุมหุ่นยนต์ ROS2 SLAM Navigation")
+app = FastAPI(title="ROS2GO AMR API Server", description="ROS2GO API สำหรับควบคุมหุ่นยนต์ ROS2 SLAM Navigation")
 
 # --- CORS Setup ---
 app.add_middleware(
