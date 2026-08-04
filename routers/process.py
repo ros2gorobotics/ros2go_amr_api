@@ -1,24 +1,28 @@
 import os
 import signal
 import subprocess
+import getpass  # เพิ่ม module getpass
 from fastapi import APIRouter
 
 import state
 
 router = APIRouter(prefix="/process", tags=["Process"])
 
-@router.post("/launch/{user}/{mode}")
-async def launch(user: str, mode: str):
+# ดึงชื่อ user ปัจจุบันที่รันโปรเซสนี้
+current_user = getpass.getuser()
+
+@router.post("/launch/{mode}")
+async def launch( mode: str):
     if mode in state.active_processes:
         return {"status": "warning", "message": f"{mode} is already running."}
 
     script, command = None, None
     if mode == "robot":
-        script = f"/home/{user}/ros2gobot/src/ros2gobot/ros2gobot_bringup/scripts/{mode}"
+        script = f"/home/{current_user}/ros2gobot/src/ros2gobot/ros2gobot_bringup/scripts/{mode}"
     elif mode in ("robot_map", "robot_nav"):
-        script = f"/home/{user}/ros2gobot/src/ros2gobot/ros2gobot_navigation/scripts/{mode}"
+        script = f"/home/{current_user}/ros2gobot/src/ros2gobot/ros2gobot_navigation/scripts/{mode}"
     elif mode == "imu_tester":
-        command = f"source /opt/ros/jazzy/setup.bash && source /home/{user}/bno086_ws/install/setup.bash && ros2 launch bno086_uartrvc_driver bno086_uartrvc.launch.py"
+        command = f"source /opt/ros/jazzy/setup.bash && source /home/{current_user}/bno086_ws/install/setup.bash && ros2 launch bno086_uartrvc_driver bno086_uartrvc.launch.py"
     else:
         return {"status": "error", "message": f"Unknown mode: {mode}"}
 
