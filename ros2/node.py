@@ -16,12 +16,19 @@ class ApiServerNode(Node):
     def status_callback(self, msg):
         # อัปเดตข้อมูลลง Global State
         state.latest_status = {
-            "cpu": msg.cpu,
-            "ram": msg.ram,
-            "nav": msg.navigation_active,
-            "map": msg.mapping_active,
-            "lidar": msg.lidar_status,
-            "battery": msg.battery
+            "cpu": getattr(msg, 'cpu', 0.0),
+            "ram": getattr(msg, 'ram', 0.0),
+            "nav": getattr(msg, 'navigation_active', False),
+            "map": getattr(msg, 'mapping_active', False),
+            "lidar": getattr(msg, 'lidar_status', False),
+            "battery": getattr(msg, 'battery', 0.0),
+            
+            # 👉 เพิ่มข้อมูลเซนเซอร์ที่ขาดหายไปตรงนี้ครับ
+            "imu": getattr(msg, 'imu_status', False),
+            "odom": getattr(msg, 'odom_status', False),
+            "tf": getattr(msg, 'tf_status', False),
+            "hardware": getattr(msg, 'hardware_status', False),
+            "localization": getattr(msg, 'localization_status', False)
         }
 
 def run_ros2():
